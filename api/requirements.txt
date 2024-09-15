@@ -1,2 +1,9 @@
 flask
 flask_swagger_ui
+dataclasses_json
+pyspark
+pandas
+deltalake
+delta-spark
+pytest
+requests

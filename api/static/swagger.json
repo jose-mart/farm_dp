@@ -1,0 +1,215 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Farm API",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/": {
+        "get": {
+          "description": "Returns message showing app is up",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation"
+            }
+          }
+        }
+      },
+      "/cows/{cow_id}": {
+        "get": {
+          "description": "Return latest measurement by a given cow.",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "cow_id",
+              "in": "path",
+              "description": "ID of cow",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "User granted access"
+            },
+            "400": {
+              "description": "Invalid request data"
+            },
+            "500":{
+              "description": "Server error"
+            }
+          }
+        },
+        "post": {
+          "description": "Insert a new cos",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "cow_id",
+              "in": "path",
+              "description": "ID of cow",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "Cow details",
+              "in": "body",
+              "description": "JSON cow detail consumed by the API",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Cow"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "User granted access"
+            },
+            "400": {
+              "description": "Invalid request data"
+            },
+            "500":{
+              "description": "Server error"
+            }
+          }
+        }
+      },
+      "/measurement/{sensor_id}/{cow_id}": {
+        "post": {
+          "description": "Insert a new measure.",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "sensor_id",
+              "in": "path",
+              "description": "ID of sensor",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "cow_id",
+              "in": "path",
+              "description": "ID of cow",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "Value",
+              "in": "body",
+              "description": "JSON cow detail consumed by the API",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Measurement"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "User granted access"
+            },
+            "400": {
+              "description": "Invalid request data"
+            },
+            "500":{
+              "description": "Server error"
+            }
+          }
+        }
+      },
+      "/sensors/{sensor_id}": {
+        "post": {
+          "description": "Insert a new cow",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "sensor_id",
+              "in": "path",
+              "description": "ID of cow",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "Sensor details",
+              "in": "body",
+              "description": "JSON Sensonr detail consumed by the API",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Sensor"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "User granted access"
+            },
+            "400": {
+              "description": "Invalid request data"
+            },
+            "500":{
+              "description": "Server error"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Cow": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "birthdate": {
+            "type": "string",
+            "description": "Expected format --> YYYY-mm-dd"
+          }
+        }
+      },
+      "Measurement": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "description": "Can´t be null or negative."
+          },
+          "value": {
+            "type": "number",
+            "format": "float",
+            "description": "Can´t be null or negative."
+          }
+        }
+      },
+      "Sensor": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "allowed": ["L", "kg"]
+          }
+        }
+      }
+    }
+  }
